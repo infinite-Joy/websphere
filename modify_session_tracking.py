@@ -1,4 +1,4 @@
-import java.lang.System
+import java.lang.System as sys
 
 cellName = ""
 nodeName = ""
