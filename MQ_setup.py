@@ -87,4 +87,17 @@ def createQueue(nodeName, serverName, queue_name, queue_jndi_name,
     AdminConfig.save()
 
 
-print "Creating Connection Factories"
+def main():
+    print "Creating Connection Factories"
+    createMQCF(nodeName, connectionFactory1, "jms/" + connectionFactory1,
+        queueManager1, queueServer1, mqPort, "<custom channel name>")
+    # some similar other message queue connection factories named
+
+    print "Creating queue"
+    createQueue(nodeName1, serverName1, queue_name1, "jms/" + queue_name1,
+        baseQueueName1, "JMS")
+    # some other create queue args
+
+
+if __name__ == "__main__" or __name__ == "main":
+    main()
