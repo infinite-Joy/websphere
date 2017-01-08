@@ -54,3 +54,37 @@ def createMQCF(nodeName, serverName, name, jndi, queue_manager,
     print "Websphere MQ Connection Factory Resource created: " + name
 
     AdminConfig.save()
+
+
+def createQueue(nodeName, serverName, queue_name, queue_jndi_name,
+        queue_obj_name, targetClient):
+    print "Creating queuen %s" % queue_name
+    jmsProvider = AdminConfig.getid("/Cell:" + cellName + "/Node:" + nodeName +
+        "/Server:" + serverName + "/JMSProvider:Websphere MQ JMS Provider")
+    templateQueue = AdminConfig.listTemplates("MQQueue").split(lineSeparator)[0]
+    name = ["name", queue_name]
+    jndi = ["jndiName", queue_jndi_name]
+    description = ["description", queue_name]
+    persist = ["persistence", "APPLICATION_DEFINED"]
+    priority = ["priority", "APPLICATION_DEFINED"]
+    specifiedPriority = ["specifiedPriority", 0]
+    expiry = ["expiry", "APPLICATION_DEFINED"]
+    specifiedExpiry = ["specifiedExpiry", 0]
+    baseQueueName = ["baseQueueName", queue_obj_name]
+    integerEncoding = ["integerEncoding", "Normal"]
+    decimalEncoding = ["decimalEncoding", "Normal"]
+    floatEncoding = ["floatingPointEncoding", "IEEENormal"]
+    # Target clint value, maybe either "JMS" or "MQ"
+    targetClient = ["targetClient", targetClient]
+    queue_attrs = [name, jndi, description, persist, priority,
+        specifiedPriority, expiry, specifiedExpiry, baseQueueName,
+        integerEncoding, decimalEncoding, floatEncoding, targetClient]
+    AdminConfig.createUsingTemplate("MQQueue", jmsProvider, queue_attrs,
+        templateQueue)
+    print "Websphere MQ Queue Resource created ==> " + queue_name
+
+    # Save Configuration
+    AdminConfig.save()
+
+
+print "Creating Connection Factories"
