@@ -44,3 +44,10 @@ def createActivationSpecifications(cell, node, server, provider, resource_name,
         " -qmgrHostname " + queue_manager_host + " -qmgrPortNumber "
         + queue_manager_port + " -qmgrSvrconnChannel " +
         queue_serv_channel + " ]")
+
+    AdminTask.createSSLConfigGroup("[-name " + serverName +
+        " -direction outbound -certificateAlias default =scopeName (cell):" +
+        cellName + ":(node):" + nodeName + ":(server):" + serverName +
+        " -sslConfigAliasName " + SSL_ConfigName + " -sslConfigScopeName " +
+        "(cell):" + cellName + ":(node):" + nodeName + ":(server):" +
+        serverName + " ]")
