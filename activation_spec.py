@@ -51,3 +51,19 @@ def createActivationSpecifications(cell, node, server, provider, resource_name,
         " -sslConfigAliasName " + SSL_ConfigName + " -sslConfigScopeName " +
         "(cell):" + cellName + ":(node):" + nodeName + ":(server):" +
         serverName + " ]")
+
+    statement = " JMS activation specification has been successfully created ==>"
+    print statement + jmscreateId
+
+
+def main():
+    createActivationSpecifications(cellName, nodeName, serverName,
+        "Websphere MQ JMS Provider", resource_name, res_jndi,
+        queue_manager_name, queue_manager_host)
+    # createWMQActivationSpec for other queue managers
+    AdminConfig.save()
+    print " ==> AdminConfig.save() successfull!!"
+
+
+if __name__ == "__main__" or __name__ == "main":
+    main()
