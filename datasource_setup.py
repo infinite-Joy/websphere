@@ -52,5 +52,24 @@ def createDS(nodeName, serverName):
                         auth_alias]
     new_datasource = AdminConfig.create("DataSource", jdbcProviderId,
                                         datasource_attrs)
-    new_property_set = AdminConfig.create("J@EEResourcePropertySet",
+    new_property_set = AdminConfig.create("J2EEResourcePropertySet",
                                           new_datasource, [])
+    url_attrs = [["name", "URL"], ["value", datasource_url],
+        ["type", "java.lang.String"]]
+    AdminConfig.create("J2EEResourceProperty", newPropSet, url_attrs)
+
+    # Set connection pool
+    cxAttr = [["connectionTimeout", connectionTimeout],
+              ["maxConnections", maxConnections],
+              ["minConnections", minConnections],
+              ["reapTime", reapTime], ["unusedTimeout", unusedTimeout],
+              ["agedTimeout", agedTimeout], ["purgePolicy", purgePolicy]]
+
+    AdminConfig.create("ConnectionPool", new_datasource, cxAttr)
+
+    print "Datasource created"
+
+    AdminConfig.save()
+
+print "Cell: " + cellName + " Node: " + nodeName
+createDS(nodeName, serverName)
