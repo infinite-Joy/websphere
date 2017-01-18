@@ -8,3 +8,4 @@ global AdminConfig
 
 # set the JKS key store path
 JKSKeyStorePath = "/path/to/JKS"
+keyPassword = ""
